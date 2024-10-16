@@ -1,0 +1,42 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.circle-image {
+	border-radius: 50%;
+}
+
+.inline {
+	display: inline-block;
+}
+
+.info {
+	display: flex;
+	align-items: center;
+}
+
+.name {
+	margin-left: 20px;
+}
+
+h1 {
+	font-size: 28px;
+}
+
+h3{
+	font-size: 20px;
+	color: #3c3c3c;
+}
+
+p {
+	font-size: 14px;
+}
+
+.resume-content{
+	background-color: #f0f0f0;
+	margin-top: 15px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	padding-left: 15px;
+	width: 470px;
+}

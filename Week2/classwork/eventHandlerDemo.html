@@ -23,21 +23,35 @@
     <button class="button">Click me!</button>
 
     <script>
-        // Example #1: Button Click Event
+        let buttonElement = document.querySelector('.button')
+
+        buttonElement.addEventListener("click", clickButtonDemo)
+
+        function clickButtonDemo(){
+            console.log("Button clicked")
+        }
     </script>
 
     <!-- Example #2: Input Keyup Event -->
     <input type="text" placeholder="Type something">
 
     <script>
-        // Example #2: Input Keyup Event
+        let inputElement = document.querySelector('input')
+
+        inputElement.addEventListener("keyup", captureInput)
+
+        function captureInput(e){
+            console.log("The text is: " + e.target.value);
+        }
     </script>
 
     <!-- Example #3: Mouse Enter Event -->
     <div class="creative-div">Hover me!</div>
 
     <script>
-        // Example #3: Mouse Enter Event
+        let creativeDivElement = document.querySelector(".creative-div")
+
+        creativeDivElement.addEventListener("mouseenter", changeSomething)
 
         function changeSomething() {
             const colors = ["red", "green", "blue", "orange", "purple"];
