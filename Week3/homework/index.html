@@ -10,6 +10,43 @@
 <body>
 	<div id='main-container'>
 		<div id='weather-container'>
+			<h5 id="todays-date"></h5>
+			<h2 id="weather-for"></h2>
+			<div id='current-weather-container'>
+				<div id='current-weather-info'>
+					<h2 id="current-weather-condition"></h2>
+					<h1 id="current-temperature"></h1>
+					<h5 id="current-aqi"></h5>
+				</div>
+				<img id="current-weather-icon"/>
+			</div>
+			<div id='forecast-container'>
+				<div class='forecast-card'>
+					<h4 class='forecast-date' id='forecast-1-date'></h4>
+					<img class='forecast-icon' id="forecast-1-icon"/>
+					<h4 class='forecast-min-max' id="forecast-1-min-max"></h4>
+				</div>
+				<div class='forecast-card'>
+					<h4 class='forecast-date' id='forecast-2-date'></h4>
+					<img class='forecast-icon' id="forecast-2-icon"/>
+					<h4 class='forecast-min-max' id="forecast-2-min-max"></h4>
+				</div>
+				<div class='forecast-card'>
+					<h4 class='forecast-date' id='forecast-3-date'></h4>
+					<img class='forecast-icon' id="forecast-3-icon"/>
+					<h4 class='forecast-min-max' id="forecast-3-min-max"></h4>
+				</div>
+				<div class='forecast-card'>
+					<h4 class='forecast-date' id='forecast-4-date'></h4>
+					<img class='forecast-icon' id="forecast-4-icon"/>
+					<h4 class='forecast-min-max' id="forecast-4-min-max"></h4>
+				</div>
+				<div class='forecast-card'>
+					<h4 class='forecast-date' id='forecast-5-date'></h4>
+					<img class='forecast-icon' id="forecast-5-icon"/>
+					<h4 class='forecast-min-max' id="forecast-5-min-max"></h4>
+				</div>
+			</div>
 		</div> 
 	</div>
 	<div id='side-container'>
@@ -23,12 +60,14 @@
 
 <script>
 		// USE YOUR OWN API KEY
-		const apiKey = "";
+		const apiKey = "5bb34faf8da2c8c7088d973d4d18ea2d";
 
         // variable that stores the city that is chosen
 		let city;
-        // variable that stores the weather and forecast for the city
+        // variable that stores the weather for the city
 		let weather;
+        // variable that stores the forecast for the city
+		let forecast;
         // the variable that stores the air quality index for the city
 		let aqi;
 
@@ -102,6 +141,114 @@
 			//printing the city object to the console
 			console.log(city);
             // BEGIN CODING HERE
+			let apiCallWeather = `http://api.openweathermap.org/data/2.5/weather/?lat=${city.lat}&lon=${city.lon}&appid=${apiKey}&units=imperial`
+
+			fetch(apiCallWeather)
+					.then((response) => 
+						response.json()
+					)
+					.then((data) => {
+						displayWeatherData(data)
+					});
+
+			let apiCallAQI = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${city.lat}&lon=${city.lon}&appid=${apiKey}`
+
+			fetch(apiCallAQI)
+					.then((response) => 
+						response.json()
+					)
+					.then((data) => {
+						displayAQIData(data)
+					});
+
+			let apiCallForecast = `http://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&lon=${city.lon}&appid=${apiKey}&units=imperial`
+
+			fetch(apiCallForecast)
+					.then((response) => 
+						response.json()
+					)
+					.then((data) => {
+						displayForecastData(data)
+					});
+		}
+
+		function displayWeatherData(data){
+			weather = {
+				condition: data.weather[0].main,
+				temperature: data.main.temp,
+				icon: data.weather[0].icon
+			}
+
+			const date = document.querySelector('#todays-date')
+			date.innerHTML = formatDate(0)
+
+			const weatherFor = document.querySelector('#weather-for')
+			weatherFor.innerHTML = `Weather for ${city.fullName}`
+
+			const currentCondition = document.querySelector('#current-weather-condition')
+			currentCondition.innerHTML = weather.condition
+
+			const currentTemperature = document.querySelector('#current-temperature')
+			currentTemperature.innerHTML = `${Math.round(weather.temperature)}\u00B0`
+
+			const currentIcon = document.querySelector('#current-weather-icon')
+			currentIcon.style.visibility = 'visible'
+			currentIcon.src = `icons/${weather.icon}.svg`
+		}
+
+		function displayAQIData(data){
+			aqi = {
+				index: data.list[0].main.aqi
+			}
+
+			const currentAQI = document.querySelector('#current-aqi')
+			currentAQI.innerHTML = `AQI: ${aqi.index}`
+		}
+
+		function displayForecastData(data){
+			forecast = {
+				list: data.list
+			}
+
+			const forecastContainer = document.querySelector('#forecast-container')
+			forecastContainer.style.visibility = 'visible'
+
+			for(let i = 1; i <= 5; i++){
+				const date = document.querySelector(`#forecast-${i}-date`)
+				date.innerHTML = formatDate(i)
+
+				const icon = document.querySelector(`#forecast-${i}-icon`)
+				icon.src = `icons/${forecast.list[5 + (i - 1) * 8].weather[0].icon}.svg`
+
+				const minMaxTemp = document.querySelector(`#forecast-${i}-min-max`)
+				let max = maxTemp(forecast.list, (0 + (i - 1) * 8), (7 + (i - 1) * 8))
+				let min = minTemp(forecast.list, (0 + (i - 1) * 8), (7 + (i - 1) * 8))
+				minMaxTemp.innerHTML = `${Math.round(max)}\u00B0 to ${Math.round(min)}\u00B0`
+			}
+		}
+
+		function minTemp(arr, start, end) {
+			let min = arr[start].main.temp;
+
+			for (let i = start + 1; i <= end; i++) {
+				if (arr[i].main.temp < min) {
+					min = arr[i].main.temp;
+				}
+			}
+
+			return min;
+		}
+
+		function maxTemp(arr, start, end) {
+			let max = arr[start].main.temp;
+
+			for (let i = start + 1; i <= end; i++) {
+				if (arr[i].main.temp > max) {
+					max = arr[i].main.temp;
+				}
+			}
+			
+			return max;
 		}
 	</script>
 </html>

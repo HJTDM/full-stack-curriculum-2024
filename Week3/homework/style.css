@@ -35,6 +35,60 @@
     height: 60%;
     width: 90%;
   }
+
+  #current-weather-container {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  #current-temperature {
+    font-size: 72px;
+  }
+
+  #current-weather-info{
+    display: inline-block;
+  }
+
+  #current-weather-icon{
+    margin-left: 30px;
+    display: inline-block;
+    visibility: hidden;
+    height: 160px;
+    width: 160px;
+  }
+
+  #forecast-container {
+    margin-top: 10px;
+    display: flex;
+    visibility: hidden;
+    justify-content: space-between;
+  }
+
+  .forecast-card {
+    width: 170px;
+    height: 200px;
+    background-color: #ffffff;
+    border: 2px solid #0075ff;
+    border-radius: 5px;
+  }
+
+  .forecast-date{
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .forecast-icon{
+    height: 125px;
+    width: 125px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .forecast-min-max {
+    text-align: center;
+  }
   
   #side-container {
     height: 100%;
