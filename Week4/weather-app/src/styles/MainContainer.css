@@ -1,5 +1,10 @@
 /* Add your styling for MainContainer component here */
 /* For example: */
+* {
+  padding: 0px;
+  margin: 0px;
+}
+
 #main-container {
   height: 100%;
   width: 66%;
@@ -13,4 +18,31 @@
 #weather-container {
   height: 60%;
   width: 90%;
+}
+
+#current-weather-container {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+
+#current-temperature {
+  font-size: 72px;
+}
+
+#current-weather-info{
+  display: inline-block;
+}
+
+#current-weather-icon{
+  margin-left: 30px;
+  display: inline-block;
+  height: 160px;
+  width: 160px;
+}
+
+#forecast-container {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
 }
