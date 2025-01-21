@@ -37,7 +37,7 @@ export default function HomePage() {
       else{
         const token = await currentUser.getIdToken();
         console.log('Token:', token);
-        fetch(`http://localhost:5000/user-tasks`, {
+        fetch(`${process.env.REACT_APP_BACKEND}/user-tasks`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ export default function HomePage() {
       // to the API to add a new task and then update the state based on the response.
       const token = await currentUser.getIdToken();
 
-      fetch("http://localhost:5000/tasks", {
+      fetch(`${process.env.REACT_APP_BACKEND}/tasks`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -99,7 +99,7 @@ export default function HomePage() {
     // TODO: Support removing/checking off todo items in your todo list through the API.
     // Similar to adding tasks, when checking off a task, you should send a request
     // to the API to update the task's status and then update the state based on the response.
-    fetch(`http://localhost:5000/tasks/${task.id}`, {
+    fetch(`${process.env.REACT_APP_BACKEND}/tasks/${task.id}`, {
       method: "DELETE",
       headers: {
         'Content-Type': 'application/json',
