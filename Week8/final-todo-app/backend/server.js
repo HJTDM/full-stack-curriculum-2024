@@ -13,8 +13,15 @@ require("dotenv").config();
 // Importing the Firestore database instance from firebase.js
 const db = require("./firebase");
 
+const corsOptions = {
+  origin: 'https://full-stack-curriculum-2024-rwql.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+};
+
 // Middlewares to handle cross-origin requests and to parse the body of incoming requests to JSON
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 // Authentication Middleware
