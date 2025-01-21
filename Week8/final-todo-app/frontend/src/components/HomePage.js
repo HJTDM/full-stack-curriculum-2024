@@ -36,7 +36,6 @@ export default function HomePage() {
       }
       else{
         const token = await currentUser.getIdToken();
-        console.log('Token:', token);
         fetch(`${process.env.REACT_APP_BACKEND}/user-tasks`, {
           method: 'GET',
           headers: {
@@ -46,7 +45,6 @@ export default function HomePage() {
         })
           .then((response) => response.json())
           .then((data) => {
-            console.log('Response data:', data);
             setTaskList(data)
           })
           .catch(error => {
