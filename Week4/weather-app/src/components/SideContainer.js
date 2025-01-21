@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "../styles/SideContainer.css"; // Import the CSS file for SideContainer
 
 function SideContainer(props) {
